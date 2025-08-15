@@ -7,6 +7,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 DATA_FILE = "amenities_data.json"
+
 if os.path.exists(DATA_FILE):
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         amenities_data = json.load(f)
@@ -36,6 +37,7 @@ def log_edit():
         if component not in amenities_data:
             amenities_data[component] = {}
         amenities_data[component][field] = new_value
+        
         with open(DATA_FILE, "w", encoding="utf-8") as f:
             json.dump(amenities_data, f, indent=4, ensure_ascii=False)
 
