@@ -11,13 +11,11 @@ if os.path.exists(DATA_FILE):
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         amenities_data = json.load(f)
 else:
-    amenities_data = {}  
-
+    amenities_data = {}
 
 @app.route("/")
 def home():
     return jsonify({"message": "Backend is running!"})
-
 
 @app.route("/update-section", methods=["POST"])
 def log_edit():
@@ -47,6 +45,6 @@ def log_edit():
         print("Error logging edit:", str(e))
         return jsonify({"error": str(e)}), 500
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
